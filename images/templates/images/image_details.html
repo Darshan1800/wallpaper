@@ -1,0 +1,240 @@
+{% extends 'base_layout.html' %}
+{% load hitcount_tags %}
+
+{% block content %}
+ <style>
+
+@media(max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .container.gallery-container {
+        border-radius: 0;
+
+    }
+	.grid-sizer,
+.grid-item {
+   
+  width: 100%;
+}
+ }
+
+.container.gallery-container {
+    background-color: #fff;
+    color: #35373a;
+    min-height: 100vh;
+    border-radius: 20px;
+    box-shadow: 0 8px 15px rgba(199, 69, 69, 0.06);
+}
+
+.gallery-container h1 {
+    text-align: center;
+    margin-top: 70px;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: bold;
+}
+
+.gallery-container p.page-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 25px auto;
+    color: #888;
+    font-size: 18px;
+}
+
+.tz-gallery {
+    padding:50px 60px;
+}
+
+.tz-gallery .lightbox img {
+    width: 100%;
+     margin-top: 10px;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+
+.tz-gallery .lightbox img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.tz-gallery img {
+    border-radius: 5px;
+}
+
+
+
+
+.body-gallery{
+    background: linear-gradient(to top, #a8a7a7 0%, #eceeef 100%, #e7e8e9 100%);
+    min-height: 100vh;
+    font: normal 16px sans-serif;
+    padding: 80px ;
+    !margin-top:60px;
+}
+
+
+* { box-sizing: border-box; }
+
+  ul{padding: 8px 16px;
+                list-style: none;
+                background: rgb(30, 144, 255);}
+
+    li{display: inline;}
+
+    li a{color:black}
+    ul li + li::before{padding: 8px;
+                    color: black;
+                    content: "/\00a0";}
+
+    .active{color: white;}
+
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+body { font-family: sans-serif; }
+
+/* ---- grid ---- */
+
+.grid {
+  background: #FFFF;
+}
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 33.333%;
+}
+
+.grid-item {
+  padding:5px;
+  float: left;
+}
+
+.grid-item img {
+  display: block;
+  width: 100%;
+}
+.grid-item:hover {
+    padding:0;
+box-shadow: 0 8px 8px 0  black;
+}
+
+@media(max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .container.gallery-container {
+        border-radius: 0;
+
+    }
+    .body-gallery
+    {
+      padding:0;
+    }
+	.grid-sizer,
+.grid-item {
+   
+  width: 100%;
+}
+ }
+
+</style>
+<!-- Demo Content -->    
+  
+  
+
+<div class="body-gallery">
+	<div class="container gallery-container">
+
+    <div class="tz-gallery">
+      
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{image.title}}</li>
+      </ul>
+   
+    
+  
+        <div class="container " style="text-align: center;">
+            <a class="lightbox" href="{{image.thumbnail.url}}">
+              <img src="{{image.thumbnail.url}}" alt="{{image.title}}" style="width:50%; height:300px;">
+            </a>
+        </div>
+        <br>
+            <h1 style="margin-top:8px;">{{image.title}}</h1>
+            <p><b>Views:</b> {% get_hit_count for image %}</p>
+        
+          <div class="container">
+            <div class="row" >
+              {% for tag in image.tags.all  %}
+              <div class="col-xd" style="margin-right:10px;float: left;">
+                <div class="d-inline btn p-2 bg-primary text-white">
+                  <i class="fa fa-tags"> </i> {{tag}}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <br><br><br><br>
+          <div class="container">
+            <div class="row">
+              
+              <div class="col-sm" style="padding:10px;">
+                <a href="{{ image.thumbnail.url}}" download>
+                  <button><i class="fa fa-download"></i> Download Thumbnail</button>
+                </a>
+              </div>
+
+              <div class="col-sm "style="padding:10px;">
+                <a href="{{ image.normal.url}}" download>
+                  <button><i class="fa fa-download"></i>Download Normal</button>
+                </a>
+              </div>
+
+              <div class="col-sm"style="padding:10px;">
+                <a href="{{ image.fourk.url}}" download>
+                  <button><i class="fa fa-download"></i> Download 4k</button>
+                </a>
+              </div>
+
+              <div class="col-sm"style="padding:10px;">
+                <a href="{{ image.hd.url}}" download>
+                  <button><i class="fa fa-download"></i> Download HD</button>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+    </div>
+  </div>
+</div>
+  
+
+ 
+
+<!--div class="grid" style="margin-top:30px;">
+  <div class="grid-sizer"></div>
+
+      {%for image in random%}
+        <div class="grid-item">
+            <a  href="{% url 'images:detail' slug=image.slug  %}">
+            <img src="{{image.thumbnail.url}}" alt="{{image.title}}"class="img-thumbnail shadow-lg  bg-white rounded" >
+            </a>
+        </div> 
+      {%endfor%}           
+  </div-->
+ 
+
+{% endblock %}

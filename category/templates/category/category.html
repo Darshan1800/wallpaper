@@ -1,0 +1,178 @@
+{% extends 'base_layout.html' %}
+{% load hitcount_tags %}
+
+{% block content %}
+ <style>
+
+
+
+.container.gallery-container {
+    background-color: #fff;
+    color: #35373a;
+    min-height: 100vh;
+    border-radius: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
+}
+
+.gallery-container h1 {
+    text-align: center;
+    margin-top: 70px;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: bold;
+}
+
+.gallery-container p.page-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 25px auto;
+    color: #888;
+    font-size: 18px;
+}
+
+.tz-gallery {
+    padding: 40px;
+}
+
+.tz-gallery .lightbox img {
+    width: 100%;
+    margin-bottom: 30px;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+
+
+.tz-gallery .lightbox img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.tz-gallery img {
+    border-radius: 4px;
+}
+
+.baguetteBox-button {
+    background-color: transparent !important;
+}
+
+
+
+.body-gallery{
+    background-image: linear-gradient(to top, #ecedee 0%, #eceeef 100%, #e7e8e9 100%);
+    min-height: 100vh;
+    font: normal 16px sans-serif;
+    padding: 60px ;
+    margin-top:60px;
+}
+
+* { box-sizing: border-box; }
+
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+body { font-family: sans-serif; }
+
+/* ---- grid ---- */
+
+.grid {
+  background: #FFFF;
+}
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 33.333%;
+}
+
+.grid-item {
+  padding:5px;
+  float: left;
+}
+
+.grid-item img {
+  display: block;
+  width: 100%;
+}
+.grid-item:hover {
+    padding:0;
+box-shadow: 0 8px 8px 0  black;
+}
+@media(max-width: 768px) {
+    body {
+        padding: 0;
+    }
+    .body-gallery{
+      padding:0;
+    }
+    .container.gallery-container {
+        border-radius: 0;
+
+    }
+	.grid-sizer,
+.grid-item {
+   
+  width: 100%;
+}
+ }
+
+
+
+</style>
+<!-- Demo Content -->    
+  
+  
+
+<div class="body-gallery">
+  
+
+		<div class="container gallery-container">
+
+    
+    <div class="tz-gallery">
+ <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Category</li>
+  </ol>
+  </nav>
+<div class="container ">
+   <div class="grid">
+            <div class="grid-sizer"></div>
+            {%for image in category%}
+            <div class="grid-item">
+            <a  href="{% url 'category:catlist' slug=image.slug%}">
+            <img src="{{image.thumb.url}}" alt="{{image.title}}"class="img-thumbnail shadow-lg  bg-white rounded" >
+            <div class="shadow-lg p-3 mb bg-white rounded text-dark"><strong>Title</strong>:  {{image.title}}</div>
+            
+            </a>
+            </div> 
+            {%endfor%} 
+            </div>
+            </div>
+    
+    
+  </div>
+</div>
+     
+     
+    
+     
+     
+     
+    
+    </div>
+    
+  </div>
+  </div>
+  
+
+ 
+{% endblock %}
